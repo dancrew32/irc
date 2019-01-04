@@ -1,0 +1,32 @@
+version: "3"
+services:
+
+  bot:
+    build: .
+    restart: always
+    command: python app.py
+    environment:
+      - IRC_NETWORK=${IRC_NETWORK}
+      - IRC_PORT=${IRC_PORT}
+      - IRC_USERNAME=${IRC_USERNAME}
+      - IRC_PASSWORD=${IRC_PASSWORD}
+      - IRC_CHANNELS=${IRC_CHANNELS}
+      - IRC_DB_USER=${IRC_DB_USER}
+      - IRC_DB_PASSWORD=${IRC_DB_PASSWORD}
+      - IRC_DB_NAME=${IRC_DB_NAME}
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./app:/app
+    links:
+      - db
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${IRC_DB_USER}
+      - POSTGRES_PASSWORD=${IRC_DB_PASSWORD}
+      - POSTGRES_DB=${IRC_DB_NAME}
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
