@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import bot
+import db
 
 
 irc = bot.IRC(
@@ -24,7 +25,7 @@ def loop():
         return
 
     if message:
-        print(message)
+        db.add_message(message)
 
 
 def try_loop():
