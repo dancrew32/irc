@@ -9,6 +9,9 @@ remove:
 	docker-compose rm -f db
 	rm -rf postgres
 
+bot:
+	docker-compose exec bot bash
+
 pep:
 	pip install autopep8
 	autopep8 -i app/bot.py app/app.py app/db.py
