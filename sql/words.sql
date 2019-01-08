@@ -1,0 +1,11 @@
+WITH WORDS AS (
+  SELECT 
+    UNNEST(STRING_TO_ARRAY(LOWER(text), ' ')) AS word
+  FROM message
+)
+SELECT 
+  word, count(*) 
+FROM WORDS
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 100;
